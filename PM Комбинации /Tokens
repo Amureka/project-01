@@ -1,0 +1,973 @@
+{
+  "version": 1,
+  "tokens": [
+    {
+      "name": "Text&Icons/colorPrimaryTextActive",
+      "hex": "#32507e",
+      "color": {
+        "r": 0.19607843137254902,
+        "g": 0.3137254901960784,
+        "b": 0.49411764705882355,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorWarningTextActive",
+      "hex": "#d48806",
+      "color": {
+        "r": 0.8313725490196079,
+        "g": 0.5333333333333333,
+        "b": 0.023529411764705882,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorSuccessTextHover",
+      "hex": "#73d13d",
+      "color": {
+        "r": 0.45098039215686275,
+        "g": 0.8196078431372549,
+        "b": 0.23921568627450981,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorSuccessBgHover",
+      "hex": "#d9f7be",
+      "color": {
+        "r": 0.8509803921568627,
+        "g": 0.9686274509803922,
+        "b": 0.7450980392156863,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorSuccessBg",
+      "hex": "#ecf8f6",
+      "color": {
+        "r": 0.9254901960784314,
+        "g": 0.9725490196078431,
+        "b": 0.9647058823529412,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorSuccessText",
+      "hex": "#40bea8",
+      "color": {
+        "r": 0.25098039215686274,
+        "g": 0.7450980392156863,
+        "b": 0.6588235294117647,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorPrimaryBg",
+      "hex": "#f0f4fb",
+      "color": {
+        "r": 0.9411764705882353,
+        "g": 0.9568627450980393,
+        "b": 0.984313725490196,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorTextDescription",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.45
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorSuccessBorderHover",
+      "hex": "#95de64",
+      "color": {
+        "r": 0.5843137254901961,
+        "g": 0.8705882352941177,
+        "b": 0.39215686274509803,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorTextLightSolid",
+      "hex": "#ffffff",
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorBgTextHover",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.060000000747979856
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorIconHover",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.8799999760646446
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorWhite",
+      "hex": "#ffffff",
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Не разобрано/Character/Primary(inverse)",
+      "hex": "#ffffff",
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorTextSecondary",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.65
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorText",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.8799999760646446
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorFillSecondary",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.060000000747979856
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorIcon",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.45
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorFillTertiary",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.03999999925202014
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/controlItemBgActive",
+      "hex": "#0591ff",
+      "color": {
+        "r": 0.0196078431372549,
+        "g": 0.5686274509803921,
+        "b": 1,
+        "a": 0.009999999813005036
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/controlItemBgActiveHover",
+      "hex": "#bae0ff",
+      "color": {
+        "r": 0.7294117647058823,
+        "g": 0.8784313725490196,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/! colorErrorBase",
+      "hex": "#ff4d4f",
+      "color": {
+        "r": 1,
+        "g": 0.30196078431372547,
+        "b": 0.30980392156862746,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorBgElevated",
+      "hex": "#ffffff",
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorTextDisabled",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.25
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorFillContent",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.060000000747979856
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorTextTertiary",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.45
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorBorderSecondary",
+      "hex": "#f0f0f0",
+      "color": {
+        "r": 0.9411764705882353,
+        "g": 0.9411764705882353,
+        "b": 0.9411764705882353,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorBgMask",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.45
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorSplit",
+      "hex": "#050505",
+      "color": {
+        "r": 0.0196078431372549,
+        "g": 0.0196078431372549,
+        "b": 0.0196078431372549,
+        "a": 0.060000000747979856
+      },
+      "description": "Used as the color of separator, this color is the same as colorBorderSecondary but with transparency."
+    },
+    {
+      "name": "Text&Icons/colorLink",
+      "hex": "#5485d2",
+      "color": {
+        "r": 0.32941176470588235,
+        "g": 0.5215686274509804,
+        "b": 0.8235294117647058,
+        "a": 1
+      },
+      "description": "Seed"
+    },
+    {
+      "name": "Не разобрано/Conditional/divider",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.05999999700808058
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorBorder",
+      "hex": "#d9d9d9",
+      "color": {
+        "r": 0.8509803921568627,
+        "g": 0.8509803921568627,
+        "b": 0.8509803921568627,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorErrorTextActive",
+      "hex": "#d9363e",
+      "color": {
+        "r": 0.8509803921568627,
+        "g": 0.21176470588235294,
+        "b": 0.24313725490196078,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorTextHeading",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.8799999760646446
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorInfoBorderHover",
+      "hex": "#69b1ff",
+      "color": {
+        "r": 0.4117647058823529,
+        "g": 0.6941176470588235,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorFillQuaternary",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.01999999962601007
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorWarningOutline",
+      "hex": "#ffd705",
+      "color": {
+        "r": 1,
+        "g": 0.8431372549019608,
+        "b": 0.0196078431372549,
+        "a": 0.009999999813005036
+      },
+      "description": "Обводка (outline) инпута при предупреждении"
+    },
+    {
+      "name": "Text&Icons/colorErrorHover",
+      "hex": "#ff7875",
+      "color": {
+        "r": 1,
+        "g": 0.47058823529411764,
+        "b": 0.4588235294117647,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorInfoBgHover",
+      "hex": "#bae0ff",
+      "color": {
+        "r": 0.7294117647058823,
+        "g": 0.8784313725490196,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorPrimaryHover",
+      "hex": "#98b6e4",
+      "color": {
+        "r": 0.596078431372549,
+        "g": 0.7137254901960784,
+        "b": 0.8941176470588236,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorWarningText",
+      "hex": "#faad14",
+      "color": {
+        "r": 0.9803921568627451,
+        "g": 0.6784313725490196,
+        "b": 0.0784313725490196,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorFillAlter",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.01999999962601007
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorErrorBorder",
+      "hex": "#ffccc7",
+      "color": {
+        "r": 1,
+        "g": 0.8,
+        "b": 0.7803921568627451,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorWarningTextHover",
+      "hex": "#ffc53d",
+      "color": {
+        "r": 1,
+        "g": 0.7725490196078432,
+        "b": 0.23921568627450981,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/controlItemBgHover",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.03999999925202014
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorPrimaryBorderHover",
+      "hex": "#98b6e4",
+      "color": {
+        "r": 0.596078431372549,
+        "g": 0.7137254901960784,
+        "b": 0.8941176470588236,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/! colorPrimaryBase",
+      "hex": "#5485d2",
+      "color": {
+        "r": 0.32941176470588235,
+        "g": 0.5215686274509804,
+        "b": 0.8235294117647058,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Ant/colorPrimary",
+      "hex": "#5485d2",
+      "color": {
+        "r": 0.32941176470588235,
+        "g": 0.5215686274509804,
+        "b": 0.8235294117647058,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorLinkActive",
+      "hex": "#0958d9",
+      "color": {
+        "r": 0.03529411764705882,
+        "g": 0.34509803921568627,
+        "b": 0.8509803921568627,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorWarningBg",
+      "hex": "#fffbe6",
+      "color": {
+        "r": 1,
+        "g": 0.984313725490196,
+        "b": 0.9019607843137255,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorInfoBg",
+      "hex": "#e6f4ff",
+      "color": {
+        "r": 0.9019607843137255,
+        "g": 0.9568627450980393,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorErrorOutline",
+      "hex": "#ff2605",
+      "color": {
+        "r": 1,
+        "g": 0.14901960784313725,
+        "b": 0.0196078431372549,
+        "a": 0.060000000747979856
+      },
+      "description": "Обводка (outline) инпута при ошибке"
+    },
+    {
+      "name": "Text&Icons/colorWarningActive",
+      "hex": "#d48806",
+      "color": {
+        "r": 0.8313725490196079,
+        "g": 0.5333333333333333,
+        "b": 0.023529411764705882,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Ant/colorError",
+      "hex": "#ff4d4f",
+      "color": {
+        "r": 1,
+        "g": 0.30196078431372547,
+        "b": 0.30980392156862746,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorBorderDisabled",
+      "hex": "#d9d9d9",
+      "color": {
+        "r": 0.8509803921568627,
+        "g": 0.8509803921568627,
+        "b": 0.8509803921568627,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorSuccessActive",
+      "hex": "#205f54",
+      "color": {
+        "r": 0.12549019607843137,
+        "g": 0.37254901960784315,
+        "b": 0.32941176470588235,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorInfoBorder",
+      "hex": "#91caff",
+      "color": {
+        "r": 0.5686274509803921,
+        "g": 0.792156862745098,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/! colorSuccessBase",
+      "hex": "#40bea8",
+      "color": {
+        "r": 0.25098039215686274,
+        "g": 0.7450980392156863,
+        "b": 0.6588235294117647,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorErrorBg",
+      "hex": "#fff2f0",
+      "color": {
+        "r": 1,
+        "g": 0.9490196078431372,
+        "b": 0.9411764705882353,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorWarningBorderHover",
+      "hex": "#ffd666",
+      "color": {
+        "r": 1,
+        "g": 0.8392156862745098,
+        "b": 0.4,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorLinkHover",
+      "hex": "#69b1ff",
+      "color": {
+        "r": 0.4117647058823529,
+        "g": 0.6941176470588235,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorWarningHover",
+      "hex": "#ffd666",
+      "color": {
+        "r": 1,
+        "g": 0.8392156862745098,
+        "b": 0.4,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorPrimaryBorder",
+      "hex": "#bbceed",
+      "color": {
+        "r": 0.7333333333333333,
+        "g": 0.807843137254902,
+        "b": 0.9294117647058824,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorTextPlaceholder",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.25
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorBgContainer",
+      "hex": "#ffffff",
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorSuccessHover",
+      "hex": "#95de64",
+      "color": {
+        "r": 0.5843137254901961,
+        "g": 0.8705882352941177,
+        "b": 0.39215686274509803,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Ant/colorInfo",
+      "hex": "#1677ff",
+      "color": {
+        "r": 0.08627450980392157,
+        "g": 0.4666666666666667,
+        "b": 1,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorSuccessBorder",
+      "hex": "#9fdfd4",
+      "color": {
+        "r": 0.6235294117647059,
+        "g": 0.8745098039215686,
+        "b": 0.8313725490196079,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorErrorBgHover",
+      "hex": "#fff1f0",
+      "color": {
+        "r": 1,
+        "g": 0.9450980392156862,
+        "b": 0.9411764705882353,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorWarningBgHover",
+      "hex": "#fff1b8",
+      "color": {
+        "r": 1,
+        "g": 0.9450980392156862,
+        "b": 0.7215686274509804,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorErrorActive",
+      "hex": "#d9363e",
+      "color": {
+        "r": 0.8509803921568627,
+        "g": 0.21176470588235294,
+        "b": 0.24313725490196078,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorSuccessTextActive",
+      "hex": "#205f54",
+      "color": {
+        "r": 0.12549019607843137,
+        "g": 0.37254901960784315,
+        "b": 0.32941176470588235,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorPrimaryBgHover",
+      "hex": "#dde7f6",
+      "color": {
+        "r": 0.8666666666666667,
+        "g": 0.9058823529411765,
+        "b": 0.9647058823529412,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Ant/colorSuccess",
+      "hex": "#40bea8",
+      "color": {
+        "r": 0.25098039215686274,
+        "g": 0.7450980392156863,
+        "b": 0.6588235294117647,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorPrimaryText",
+      "hex": "#5485d2",
+      "color": {
+        "r": 0.32941176470588235,
+        "g": 0.5215686274509804,
+        "b": 0.8235294117647058,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/! colorWarningBase",
+      "hex": "#faad14",
+      "color": {
+        "r": 0.9803921568627451,
+        "g": 0.6784313725490196,
+        "b": 0.0784313725490196,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorTextQuaternary",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.25
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorErrorText",
+      "hex": "#ff4d4f",
+      "color": {
+        "r": 1,
+        "g": 0.30196078431372547,
+        "b": 0.30980392156862746,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Alias (редкие случаи)/colorBgContainerDisabled",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.03999999925202014
+      },
+      "description": "Control the background color of container in disabled state."
+    },
+    {
+      "name": "Text&Icons/colorPrimaryActive",
+      "hex": "#436aa8",
+      "color": {
+        "r": 0.2627450980392157,
+        "g": 0.41568627450980394,
+        "b": 0.6588235294117647,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Ant/colorWarning",
+      "hex": "#faad14",
+      "color": {
+        "r": 0.9803921568627451,
+        "g": 0.6784313725490196,
+        "b": 0.0784313725490196,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Outline/colorWarningBorder",
+      "hex": "#ffe58f",
+      "color": {
+        "r": 1,
+        "g": 0.8980392156862745,
+        "b": 0.5607843137254902,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorErrorTextHover",
+      "hex": "#ff7875",
+      "color": {
+        "r": 1,
+        "g": 0.47058823529411764,
+        "b": 0.4588235294117647,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Text&Icons/colorPrimaryTextHover",
+      "hex": "#98b6e4",
+      "color": {
+        "r": 0.596078431372549,
+        "g": 0.7137254901960784,
+        "b": 0.8941176470588236,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorBgSpotlight",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.85
+      },
+      "description": "Background tooltip"
+    },
+    {
+      "name": "Outline/colorErrorBorderHover",
+      "hex": "#ffa39e",
+      "color": {
+        "r": 1,
+        "g": 0.6392156862745098,
+        "b": 0.6196078431372549,
+        "a": 1
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorFill",
+      "hex": "#000000",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 0,
+        "a": 0.15
+      },
+      "description": ""
+    },
+    {
+      "name": "Surface/colorBgLayout",
+      "hex": "#f5f5f5",
+      "color": {
+        "r": 0.9607843137254902,
+        "g": 0.9607843137254902,
+        "b": 0.9607843137254902,
+        "a": 1
+      },
+      "description": ""
+    }
+  ]
+}
