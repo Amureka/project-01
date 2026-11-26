@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Каталоги данных — референсы интерфейсов</title>
+  <style>
+    :root {
+      --ink: #18221e;
+      --muted: #65716b;
+      --line: #dfe6e1;
+      --paper: #f5f7f4;
+      --card: #fff;
+      --green: #286d52;
+      --green-dark: #174c38;
+      --mint: #e4f1e9;
+      --shadow: 0 18px 50px rgba(26, 48, 37, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    .page { width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 34px 0 56px; }
+    .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.08; letter-spacing: -.04em; }
+    .intro { max-width: 790px; margin: 13px 0 24px; color: var(--muted); font-size: 16px; }
+    .tabs-wrap { position: sticky; top: 0; z-index: 5; margin: 0 -12px 22px; padding: 10px 12px; background: rgba(245,247,244,.94); backdrop-filter: blur(12px); }
+    .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 3px; }
+    .tab {
+      flex: 0 0 auto; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px;
+      color: #45544b; background: #fff; font: inherit; font-size: 14px; font-weight: 650; cursor: pointer;
+      transition: .18s ease;
+    }
+    .tab:hover { border-color: #9bb6a5; color: var(--green-dark); }
+    .tab[aria-selected="true"] { color: #fff; border-color: var(--green); background: var(--green); box-shadow: 0 5px 15px rgba(40,109,82,.2); }
+    .product-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin: 16px 0 22px; }
+    .product-heading h2 { margin: 0; font-size: clamp(26px, 3.4vw, 38px); letter-spacing: -.035em; line-height: 1.12; }
+    .product-description { max-width: 850px; color: var(--muted); margin: 10px 0 0; }
+    .popularity { flex: 0 0 auto; max-width: 290px; padding: 12px 15px; border: 1px solid #cfe0d4; border-radius: 14px; background: var(--mint); color: var(--green-dark); font-size: 13px; }
+    .popularity b { display: block; margin-bottom: 3px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+    .fact { min-height: 126px; padding: 17px 19px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+    .fact-label { margin: 0 0 7px; color: var(--green); font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .fact h3 { margin: 0 0 6px; font-size: 17px; }
+    .fact p { margin: 0; color: #48564e; font-size: 14px; }
+    .scenario { margin: 0 0 24px; padding: 14px 17px; border-left: 3px solid var(--green); border-radius: 0 12px 12px 0; background: #edf3ee; color: #33443a; }
+    .scenario strong { margin-right: 6px; color: var(--green-dark); }
+    .gallery-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 26px 0 10px; }
+    .gallery-head h3 { margin: 0; font-size: 19px; letter-spacing: -.02em; }
+    .gallery-hint { margin: 0; color: var(--muted); font-size: 13px; }
+    .gallery { position: relative; overflow: hidden; border: 1px solid #d8e0da; border-radius: 20px; background: #e9eeea; box-shadow: var(--shadow); }
+    .image-stage { display: grid; width: 100%; min-height: 420px; height: clamp(420px, 56vw, 760px); place-items: center; padding: 18px 74px; }
+    .image-stage img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+    .image-stage img[hidden] { display: none; }
+    [hidden] { display: none !important; }
+    .arrow {
+      position: absolute; top: 50%; z-index: 2; display: grid; width: 48px; height: 48px; place-items: center;
+      transform: translateY(-50%); border: 1px solid rgba(255,255,255,.86); border-radius: 50%;
+      background: rgba(255,255,255,.94); color: var(--ink); box-shadow: 0 5px 18px rgba(20,40,28,.16);
+      font-size: 25px; cursor: pointer; transition: .15s ease;
+    }
+    .arrow:hover { background: var(--green); color: #fff; }
+    .arrow:disabled { opacity: .4; cursor: default; }
+    .arrow.prev { left: 16px; }
+    .arrow.next { right: 16px; }
+    .gallery-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; min-height: 64px; padding: 8px 17px; border-top: 1px solid #d8e0da; background: #fff; }
+    .caption { display: -webkit-box; overflow: hidden; color: #35453b; font-size: 14px; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .counter { flex: 0 0 auto; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .dots { display: flex; justify-content: center; gap: 7px; margin-top: 12px; }
+    .dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: #bdc9c1; cursor: pointer; transition: .18s; }
+    .dot[aria-current="true"] { width: 24px; background: var(--green); }
+    .source-row { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 17px 2px 0; color: var(--muted); font-size: 13px; }
+    .source-row a { color: var(--green-dark); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .footer-note { margin: 34px 0 0; padding-top: 17px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .page { width: min(100% - 28px, 1440px); padding-top: 24px; }
+      .product-heading { display: block; }
+      .popularity { max-width: none; margin-top: 14px; }
+      .facts { grid-template-columns: 1fr; gap: 10px; }
+      .fact { min-height: 0; }
+      .image-stage { min-height: 300px; height: clamp(300px, 72vw, 520px); padding: 14px 48px; }
+      .arrow { width: 40px; height: 40px; font-size: 21px; }
+      .arrow.prev { left: 8px; } .arrow.next { right: 8px; }
+      .gallery-head { display: block; }
+      .gallery-hint { margin-top: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">Референсы интерфейсов</p>
+      <h1>Как аналитики изучают данные</h1>
+      <p class="intro">Каталоги, lineage и браузеры данных: выбирайте продукт, читайте сценарий и листайте экраны в том порядке, в котором аналитик исследует объекты.</p>
+    </header>
+    <nav class="tabs-wrap" aria-label="Продукты">
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </nav>
+    <section id="product" aria-live="polite"></section>
+    <p class="footer-note">Популярность указана качественно. Скриншоты из открытых материалов показывают интерфейсы функций; если шаги сценария не подтверждены кадрами или видеозаписью, это отмечено в описании.</p>
+  </main>
+  <script>
+    const products = [
+      {
+        name: 'Power BI', fullName: 'Microsoft Power BI',
+        video: { url: 'https://www.youtube.com/watch?v=kET8hpd05M4&t=183s', label: 'Видео 2025: Lineage View, выделение связей — 03:03' },
+        description: 'BI-платформа для публикации отчётов, моделей и аналитических рабочих пространств.',
+        popularity: 'Массовый продукт', popularityText: 'Одна из самых распространённых BI-платформ в компаниях, особенно в среде Microsoft.',
+        feature: 'Lineage view',
+        audience: 'BI-аналитики, авторы отчётов и участники рабочих пространств.',
+        task: 'Понять, откуда поступают данные и какие модели, потоки и отчёты зависят от выбранного объекта.',
+        scenario: 'Открывает Lineage View рабочего пространства, находит объект Account revenues и нажимает Show lineage. Power BI подсвечивает связанные объекты, чтобы аналитик проследил путь данных и зависимости.',
+        images: [
+          { src: '01_PowerBI_Lineage_Official.png', caption: 'Шаг 1. Общий граф Lineage View рабочего пространства: источники, модель и отчёты. Пример из документации Microsoft.', alt: 'Полный экран Power BI Lineage View с графом артефактов рабочего пространства', source: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-data-lineage' },
+          { src: '02_PowerBI_Lineage_Selected_Path_Official.png', caption: 'Шаг 2. Тот же граф после выбора Account revenues: связанные объекты подсвечены, остальные приглушены. Пример из документации Microsoft.', alt: 'Полный экран Power BI Lineage View после подсветки зависимостей объекта Account revenues', source: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-data-lineage' }
+        ]
+      },
+      {
+        name: 'Tableau', fullName: 'Tableau Catalog',
+        description: 'Каталог данных в Tableau Cloud и Tableau Server, связывающий внешние таблицы с опубликованным аналитическим контентом.',
+        popularity: 'Широко известная enterprise BI-платформа', popularityText: 'Зрелый корпоративный продукт для визуальной аналитики; Catalog расширяет его поиском метаданных и lineage.',
+        feature: 'Asset details / Lineage / Impact Analysis',
+        audience: 'Аналитики Tableau, авторы книг и источников данных, data stewards.',
+        task: 'Изучить таблицу и её поля, увидеть связанные источники, книги, листы и владельцев, оценить влияние изменения.',
+        scenario: 'На странице таблицы выбирает колонку Games. Таблица остаётся открытой, а панель Lineage фильтруется и показывает связанные объекты именно для этой колонки.',
+        images: [
+          { src: '20_Tableau_Lineage_Table_Full.png', caption: 'Шаг 1. Обычная страница таблицы Batters без пояснительных выделений: список колонок и панель Lineage.', alt: 'Полная страница таблицы Batters в Tableau Catalog без пояснительных выделений', source: 'https://help.tableau.com/current/online/en-us/dm_lineage.htm' },
+          { src: '21_Tableau_Lineage_Filter_Full.png', caption: 'Шаг 2. На той же странице выбрана колонка Games; панель Lineage показывает зависимости этой колонки. В справочном изображении есть затемнение для акцента.', alt: 'Полная страница Tableau Catalog: таблица Batters, выбранная колонка Games и панель Lineage', source: 'https://help.tableau.com/current/online/en-us/dm_lineage.htm' },
+          { src: '22_Tableau_Catalog_Webinar_WholeBrowser.png', caption: 'Полный экран браузера из обучающего видео независимого автора: карточка источника Docs, список полей и панель Lineage. Курсор в исходном видео убран.', alt: 'Полный экран браузера с карточкой Docs в Tableau Catalog, списком полей и панелью Lineage', source: 'https://www.youtube.com/watch?v=NDi4dtASU2Y&t=183s' }
+        ]
+      },
+      {
+        name: 'dbt', fullName: 'dbt Catalog / dbt Docs',
+        description: 'Каталог аналитических моделей и преобразований, созданных в dbt-проекте.',
+        popularity: 'Широко используется в analytics engineering', popularityText: 'Заметный специализированный инструмент современного аналитического стека для SQL-моделирования и документации.',
+        feature: 'Catalog → Lineage graph / Resource details',
+        audience: 'Аналитические инженеры, аналитики и потребители данных.',
+        task: 'Найти модели и источники, понять зависимости, изучить свойства, колонки, тесты и происхождение конкретных полей.',
+        scenario: 'На снимке показан обзор графа проекта в dbt Explorer. Переход к карточке модели и колонкам этим изображением не подтверждён.',
+        images: [
+          { src: '05_dbt_Explorer_Full_Lineage.png', caption: 'Полный экран dbt Explorer: граф проекта от исходных таблиц до моделей и метрик.', alt: 'Полный интерфейс dbt Explorer с графом lineage проекта', source: 'https://docs.getdbt.com/blog/dbt-explorer' }
+        ]
+      },
+      {
+        name: 'DataHub', fullName: 'DataHub',
+        video: { url: 'https://www.youtube.com/watch?v=BHG_kzpQ_aQ', label: 'Видео: Impact Analysis — демонстрация с 03:13' },
+        description: 'Каталог метаданных для поиска наборов данных, понимания их схем и зависимостей между системами.',
+        popularity: 'Заметный open-source продукт', popularityText: 'Проект вырос из LinkedIn DataHub; команда заявляет о 3 000+ организациях и 3 млн загрузок PyPI в месяц.',
+        feature: 'Dataset profile: Schema / Lineage',
+        audience: 'Аналитики, инженеры данных, владельцы и кураторы данных.',
+        task: 'Изучить схему датасета и проследить его связи с источниками и downstream-объектами, при необходимости до уровня колонок.',
+        scenario: 'Сравнивает профиль dog_breeds в двух представлениях DataHub: сначала карту связей, затем Impact Analysis с фильтрами. Это иллюстрации раздела из документации, а не последовательные кадры видео.',
+        images: [
+          { src: '08_DataHub_DogBreeds_Lineage.png', caption: 'Вкладка Lineage для набора dog_breeds: схема и связанные upstream/downstream объекты.', alt: 'Полный экран DataHub с lineage набора dog_breeds', source: 'https://docs.datahub.com/docs/act-on-metadata/impact-analysis' },
+          { src: '09_DataHub_DogBreeds_Impact.png', caption: 'Анализ влияния для того же dog_breeds: настройка направления и фильтров зависимостей.', alt: 'Экран DataHub impact analysis для набора dog_breeds', source: 'https://docs.datahub.com/docs/act-on-metadata/impact-analysis' }
+        ]
+      },
+      {
+        name: 'Alation', fullName: 'Alation Data Catalog',
+        description: 'Корпоративный каталог данных для поиска таблиц, документации, владельцев и контекста использования.',
+        popularity: 'Устоявшийся enterprise-каталог', popularityText: 'Специализированная платформа управления метаданными и обнаружения корпоративных данных.',
+        feature: 'Data Catalog: Table overview / Lineage',
+        audience: 'Аналитики, data stewards и владельцы данных.',
+        task: 'Найти таблицу, разобраться в назначении и колонках, увидеть происхождение и использование данных.',
+        scenario: 'На снимках показаны обзор каталога и lineage-экран Alation. По имеющимся материалам нельзя подтвердить, что это одна таблица в одном пользовательском проходе.',
+        images: [
+          { src: '11_Alation_Catalog_Overview.png', caption: 'Обзор Streaming Customer Demographics с описанием таблицы и метаданными.', alt: 'Интерфейс Alation с обзором таблицы Streaming Customer Demographics', source: 'https://www.alation.com/product/data-catalog/' },
+          { src: '12_Alation_Lineage.png', caption: 'Страница таблицы с графом lineage и сведениями о владельце.', alt: 'Интерфейс Alation с lineage таблицы', source: 'https://www.alation.com/' }
+        ]
+      },
+      {
+        name: 'Select Star', fullName: 'Select Star',
+        description: 'Каталог аналитических данных с описаниями колонок, поиском, lineage и сигналами использования.',
+        popularity: 'Нишевый специализированный каталог', popularityText: 'Сфокусирован на data discovery и понятной документации объектов для аналитических команд.',
+        feature: 'Data Catalog: Columns / Lineage / Queries & Joins',
+        audience: 'Аналитики, аналитические инженеры и владельцы наборов данных.',
+        task: 'Изучить таблицы, описания и колонки, понять популярность полей и связи с другими объектами.',
+        scenario: 'Изучает колонки ORDERS и отдельное представление lineage. Последовательность перехода между ними на снимках не записана.',
+        images: [
+          { src: '13_SelectStar_Orders_Columns.png', caption: 'Страница набора ORDERS: навигация по базе, список колонок и теги.', alt: 'Интерфейс Select Star с таблицей ORDERS и колонками', source: 'https://www.secoda.co/blog/top-data-discovery-tools' },
+          { src: '14_SelectStar_Lineage.png', caption: 'Граф lineage с выбранной таблицей и upstream/downstream объектами.', alt: 'Интерфейс Select Star с графом lineage', source: 'https://docs.selectstar.com/' }
+        ]
+      },
+      {
+        name: 'Databricks', fullName: 'Databricks Unity Catalog Explorer',
+        description: 'Браузер объектов lakehouse: каталоги, схемы, таблицы, представления и их метаданные.',
+        popularity: 'Крупная платформа данных и аналитики', popularityText: 'Databricks широко применяется для lakehouse, инженерии данных и аналитики; Unity Catalog организует и описывает активы.',
+        feature: 'Unity Catalog Explorer',
+        audience: 'Аналитики, инженеры данных и пользователи lakehouse.',
+        task: 'Найти таблицу или представление в каталоге и изучить владельца, описание, колонки и свойства.',
+        scenario: 'На снимке рассматривает схему dimcustomer в Unity Catalog Explorer; переход к sample data или lineage текущим примером не показан.',
+        images: [
+          { src: '15_Databricks_Catalog_Schema.png', caption: 'Таблица dimcustomer в Catalog Explorer: схема и описания её колонок.', alt: 'Интерфейс Databricks Catalog Explorer с таблицей dimcustomer', source: 'https://www.databricks.com/blog/implementing-dimensional-data-warehouse-databricks-sql-part-1' }
+        ]
+      },
+      {
+        name: 'BigQuery', fullName: 'Google BigQuery',
+        description: 'Облачное хранилище данных и SQL-среда Google Cloud с Explorer для навигации по проектам и таблицам.',
+        popularity: 'Одна из ведущих cloud data warehouse платформ', popularityText: 'Широко используемый сервис в экосистеме Google Cloud для аналитических хранилищ и запросов.',
+        feature: 'Explorer / Table schema',
+        audience: 'Аналитики данных и инженеры данных.',
+        task: 'Просматривать проекты, наборы данных и таблицы; проверять названия полей, типы, вложенность и режимы.',
+        scenario: 'Изучает Explorer и схему выбранной таблицы. Следующие вкладки Preview, Details или Lineage в этом примере не показаны.',
+        images: [
+          { src: '17_BigQuery_Explorer_Schema.png', caption: 'Explorer слева и схема выбранной таблицы в рабочей области.', alt: 'Интерфейс Google BigQuery с Explorer и схемой таблицы', source: 'https://gaillereports.com/how-to-connect-bigquery-to-looker-studio-beginner-friendly-tutorial/' }
+        ]
+      }
+    ];
+
+    const tabs = document.getElementById('tabs');
+    const root = document.getElementById('product');
+    let activeProduct = 0;
+    let activeImage = 0;
+
+    function renderTabs() {
+      tabs.innerHTML = products.map((p, i) => `<button class="tab" id="tab-${i}" role="tab" aria-selected="${i === activeProduct}" aria-controls="product-panel" tabindex="${i === activeProduct ? 0 : -1}" data-index="${i}">${p.name}</button>`).join('');
+      tabs.querySelectorAll('.tab').forEach(button => {
+        button.addEventListener('click', () => selectProduct(Number(button.dataset.index)));
+        button.addEventListener('keydown', event => {
+          if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+          event.preventDefault();
+          let i = Number(button.dataset.index);
+          if (event.key === 'ArrowRight') i = (i + 1) % products.length;
+          if (event.key === 'ArrowLeft') i = (i - 1 + products.length) % products.length;
+          if (event.key === 'Home') i = 0;
+          if (event.key === 'End') i = products.length - 1;
+          selectProduct(i);
+          tabs.querySelector(`[data-index="${i}"]`).focus();
+        });
+      });
+    }
+
+    function selectProduct(index) {
+      activeProduct = index;
+      activeImage = 0;
+      renderTabs();
+      renderProduct();
+    }
+
+    function renderProduct() {
+      const p = products[activeProduct];
+      root.innerHTML = `
+        <article id="product-panel" role="tabpanel" aria-labelledby="tab-${activeProduct}">
+          <div class="product-heading">
+            <div><h2>${p.fullName}</h2><p class="product-description">${p.description}</p></div>
+            <aside class="popularity"><b>Популярность</b>${p.popularity}<br><span>${p.popularityText}</span></aside>
+          </div>
+          <div class="facts">
+            <section class="fact"><p class="fact-label">Целевая аудитория</p><p>${p.audience}</p></section>
+            <section class="fact"><p class="fact-label">Фича / раздел</p><h3>${p.feature}</h3><p>${p.task}</p></section>
+          </div>
+          <p class="scenario"><strong>Сценарий пользователя</strong>${p.scenario}</p>
+          <div class="gallery-head"><h3>Экраны продукта</h3><p class="gallery-hint">Переключайте изображения стрелками, точками или клавишами ← →</p></div>
+          <section class="gallery" aria-label="Галерея скриншотов">
+            <button class="arrow prev" type="button" aria-label="Предыдущий скриншот">‹</button>
+            <div class="image-stage">${p.images.map((img, i) => `<img src="${img.src}" alt="${img.alt}" loading="${i === 0 ? 'eager' : 'lazy'}" ${i === 0 ? '' : 'hidden'}>`).join('')}</div>
+            <button class="arrow next" type="button" aria-label="Следующий скриншот">›</button>
+            <div class="gallery-footer"><div class="caption" aria-live="polite"></div><div class="counter"></div></div>
+          </section>
+          <div class="dots" role="group" aria-label="Выбрать скриншот"></div>
+          <div class="source-row"><span>Источники:</span>${p.images.map((img, i) => `<a href="${img.source}" target="_blank" rel="noopener noreferrer">${i + 1}. ${img.caption.split(':')[0]}</a>`).join('')}${p.video ? `<a href="${p.video.url}" target="_blank" rel="noopener noreferrer">${p.video.label}</a>` : ''}</div>
+        </article>`;
+      const gallery = root.querySelector('.gallery');
+      const imgs = [...gallery.querySelectorAll('.image-stage img')];
+      const caption = gallery.querySelector('.caption');
+      const counter = gallery.querySelector('.counter');
+      const dots = root.querySelector('.dots');
+      root.querySelector('.gallery-hint').hidden = p.images.length < 2;
+      dots.hidden = p.images.length < 2;
+      gallery.querySelector('.prev').hidden = p.images.length < 2;
+      gallery.querySelector('.next').hidden = p.images.length < 2;
+      counter.hidden = p.images.length < 2;
+      dots.innerHTML = p.images.map((_, i) => `<button class="dot" type="button" aria-label="Скриншот ${i + 1}" aria-current="${i === 0}" data-index="${i}"></button>`).join('');
+      const show = i => {
+        activeImage = (i + p.images.length) % p.images.length;
+        imgs.forEach((img, n) => { img.hidden = n !== activeImage; });
+        dots.querySelectorAll('.dot').forEach((dot, n) => dot.setAttribute('aria-current', String(n === activeImage)));
+        caption.textContent = p.images[activeImage].caption;
+        counter.textContent = `${String(activeImage + 1).padStart(2, '0')} / ${String(p.images.length).padStart(2, '0')}`;
+        gallery.querySelector('.prev').disabled = p.images.length < 2;
+        gallery.querySelector('.next').disabled = p.images.length < 2;
+      };
+      gallery.querySelector('.prev').addEventListener('click', () => show(activeImage - 1));
+      gallery.querySelector('.next').addEventListener('click', () => show(activeImage + 1));
+      dots.querySelectorAll('.dot').forEach(dot => dot.addEventListener('click', () => show(Number(dot.dataset.index))));
+      show(0);
+    }
+
+    document.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key === 'ArrowLeft') { event.preventDefault(); root.querySelector('.prev')?.click(); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); root.querySelector('.next')?.click(); }
+    });
+    renderTabs();
+    renderProduct();
+  </script>
+</body>
+</html>
+
