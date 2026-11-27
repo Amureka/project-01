@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Субъект учёта — прототип (максимальный вариант)</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1d2433;--mut:#6a7487;--line:#e2e6ee;--bg:#f4f6fa;--blue:#2f6fe4;--blue-l:#eaf1ff;--red:#d6453d;--warn:#fff6dd;--warnb:#efd48a;--dis:#eef0f4}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{max-width:none;margin:0 auto;padding:12px 16px 90px}
+.crumbs{font-size:12px;color:var(--mut);margin-bottom:8px}
+.head{background:#fff;border-radius:14px;padding:14px 16px;border:1px solid var(--line)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12px;color:var(--mut)}
+.tag{padding:2px 8px;border-radius:99px;background:#fdebd9;color:#9a5410}
+.titlerow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 16px;align-items:flex-start;margin-top:8px}
+h1{margin:0;font-size:26px;line-height:1.2}
+.sub{display:flex;gap:8px;align-items:center;margin-top:4px;color:var(--mut)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#33405a}
+.chip{display:inline-block;padding:2px 9px;border-radius:99px;background:var(--blue-l);color:#1f4aa8;font-size:12px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid #cfd6e6;background:#fff;border-radius:9px;padding:6px 11px;color:var(--ink)}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.sec{background:#eef1f7;border-color:#eef1f7}
+.btn small{display:block;font-size:11px;color:var(--mut);font-weight:400}
+.layout{display:block;margin-top:0}
+nav.anchors{position:sticky;top:0;z-index:30;display:flex;gap:6px;overflow-x:auto;background:var(--bg);padding:8px 0;margin:8px 0 6px;scrollbar-width:none}
+nav.anchors a{flex:0 0 auto;padding:5px 11px;border-radius:99px;background:#fff;border:1px solid var(--line);color:#33405a;text-decoration:none;font-size:12.5px;white-space:nowrap}
+nav.anchors a:hover{border-color:#9db3e6}
+nav.anchors .req{color:var(--red);margin-left:3px}
+.sec-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px;scroll-margin-top:52px}
+.sec-card h2{margin:0;font-size:17px;display:flex;gap:8px;align-items:center}
+.sec-card .desc{color:var(--mut);margin:4px 0 14px;max-width:760px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px 24px}
+.span2{grid-column:1/-1}
+.f label.lbl{display:flex;align-items:center;gap:6px;font-weight:600;margin-bottom:4px}
+.req-dot{color:var(--red)}
+.opt{font-weight:400;color:var(--mut);font-size:12px}
+.hintline{color:var(--mut);font-size:12.5px;margin:2px 0 6px}
+input[type=text],select,textarea{width:100%;font:inherit;padding:8px 10px;border:1px solid #c9d1e2;border-radius:8px;background:#fff;color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+.is-dis input[type=text],.is-dis select,.is-dis textarea,input:disabled,select:disabled,textarea:disabled{background:var(--dis);color:#5d6678;border-color:var(--dis)}
+.lockrow{position:relative}
+.lock{position:absolute;right:10px;top:9px;font-size:13px;opacity:.7}
+.tipwrap{position:relative}
+.tipwrap .tt{display:none;position:absolute;z-index:40;left:0;top:100%;margin-top:4px;width:300px;max-width:80vw;background:#1f2738;color:#fff;border-radius:9px;padding:9px 12px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 24px #0003;pointer-events:none}
+.tipwrap:hover .tt,.tipwrap:focus-within .tt{display:block}
+.lockbtn{background:none;border:0;padding:0;font-size:13px;opacity:.75;cursor:help}
+.lockbtn:focus-visible{outline:2px solid var(--blue);border-radius:4px}
+.why{display:flex;gap:6px;margin-top:5px;font-size:12px;color:#7a4a12;background:var(--warn);border:1px solid var(--warnb);padding:5px 8px;border-radius:7px}
+.flag{display:grid;grid-template-columns:20px 1fr;gap:2px 8px;padding:8px 0;border-bottom:1px solid #f0f2f7}
+.flag:last-child{border-bottom:0}
+.flag input{margin-top:3px}
+.flag .t{display:flex;align-items:center;gap:6px;font-weight:600}
+.flag .d{grid-column:2;color:var(--mut);font-size:12.5px}
+.flag.off .t,.flag.off .d{color:#98a1b3}
+.flag .why{grid-column:2}
+.sub-h{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:14px 0 4px}
+.i{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;border:1px solid #9db3e6;background:#fff;color:#2f6fe4;font-size:11px;font-weight:700;padding:0;line-height:1;flex:0 0 auto}
+.i:focus-visible{outline:2px solid var(--blue)}
+.pop{position:absolute;z-index:50;width:330px;background:#1f2738;color:#fff;border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.45;box-shadow:0 10px 30px #0003}
+.pop b{display:block;margin-top:7px;color:#9fc0ff;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.pop .x{position:absolute;right:8px;top:6px;background:none;border:0;color:#cbd5ea;font-size:16px}
+.pop .st{margin-top:8px;font-size:11px;color:#f3d38a}
+.tgl{display:flex;align-items:center;gap:10px;background:#eef1f7;border-radius:12px;padding:10px 14px;width:max-content;max-width:100%}
+.sw{position:relative;width:42px;height:24px;border-radius:99px;background:#b7c0d3;border:0;padding:0}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s}
+.sw[aria-checked=true]{background:var(--blue)}.sw[aria-checked=true]::after{left:21px}
+.sw:disabled{opacity:.5;cursor:not-allowed}
+.banner{display:flex;gap:10px;background:var(--blue-l);border:1px solid #c7d8fa;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13px}
+.banner.warn{background:var(--warn);border-color:var(--warnb)}
+table{border-collapse:collapse;width:100%}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #eef0f5;vertical-align:top;font-size:13px}
+th{background:#f1f5fd;color:#4a566e;font-weight:600;font-size:12px}
+th .thi{display:flex;gap:5px;align-items:flex-start}
+th.w{min-width:130px}
+.src td{background:#fff8ea}
+.demo{position:fixed;left:16px;bottom:14px;background:#1d2433;color:#fff;border-radius:12px;padding:8px 10px;display:flex;gap:6px;align-items:center;font-size:12px;z-index:60;flex-wrap:wrap;max-width:calc(100vw - 32px)}
+.demo button{border:1px solid #44506a;background:#2a3348;color:#fff;border-radius:8px;padding:5px 9px;font-size:12px}
+.demo button.on{background:var(--blue);border-color:var(--blue)}
+.ed{display:none;margin-left:6px;font-size:10.5px;padding:1px 6px;border-radius:5px;font-weight:500}
+body.editor .ed{display:inline-block}
+.ed.draft{background:#fde9d9;color:#8a4a12}.ed.sap{background:#dff5e3;color:#176b32}.ed.shot{background:#e5ecff;color:#1f4aa8}
+.leg{display:none;margin:0 0 12px;padding:10px 14px;background:#fff;border:1px dashed #b9c4dc;border-radius:10px;font-size:12.5px}
+body.editor .leg{display:block}
+.reqsum{font-size:12px;color:#176b32}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="crumbs">Логическая модель / Измерения / <b>Субъект учёта</b></div>
+  <div class="head">
+    <div class="meta"><span class="tag" id="chg">Есть изменения</span><span>Дата последнего изменения: 13.11.2026, 12:07</span><span>Версия: 49</span><span>Владелец объекта модели: nsi_mart</span><span class="reqsum" id="reqsum"></span></div>
+    <div class="titlerow">
+      <div>
+        <h1>Субъект учёта</h1>
+        <div class="sub"><span class="chip">Измерение</span><span class="mono">accounting_entity</span></div>
+      </div>
+      <div class="acts" id="acts"></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <nav class="anchors" id="nav" aria-label="Разделы"></nav>
+    <main>
+      <div class="leg"><b>Режим редактора подсказок.</b> Каждому тексту присвоен статус: <span class="ed draft" style="display:inline-block">Черновик, нужна проверка</span> — гипотеза, смысл не подтверждён; <span class="ed shot" style="display:inline-block">По экрану</span> — выведено из скриншота; <span class="ed sap" style="display:inline-block">Аналог SAP BW</span> — смысл сверен с документацией SAP BW (в вашем продукте поведение может отличаться). Публикуются только тексты, согласованные редактором.</div>
+      <div id="sections"></div>
+    </main>
+  </div>
+</div>
+
+<div class="demo">
+  <span>Демо:</span>
+  <button id="d-view" class="on">Просмотр</button>
+  <button id="d-edit">Редактирование</button>
+  <button id="d-calc">Расчётное: выкл</button>
+  <button id="d-editor">Режим редактора подсказок</button><span>Ширина области:</span><button data-w="1100">1100</button><button data-w="900">900</button><button data-w="760">760</button><button data-w="0" class="on">auto</button>
+</div>
+
+<script>
+const S={editing:false,calc:false,editor:false,open:null,
+v:{tech:'accounting_entity',full:'Субъект учёта',short:'Субъект учёта',ref:'',dtype:'string',len:'4',
+ case:false,hier:false,addbk:false,auto:false,lang:false,time:false,st:true,mt:true,lt:false,
+ cat:'К3',pub:true,auth:false,virt:false,ai:false,ext:false,man:false}};
+const CALC_OFF=['lang','time','pub','virt','man'];
+const CALC_WHY='Недоступно в расчётном измерении (данные берутся из представлений). Чтобы изменить, выключите «Расчётное измерение».';
+
+// hint: what (always visible line), when (popover), effect (popover), st: status
+const H={
+tech:{what:'Имя объекта в модели и в базе данных. Латиница, без пробелов.',when:'Задаётся один раз при создании объекта.',effect:'По этому имени на объект ссылаются другие объекты и загрузки.',st:'draft'},
+full:{what:'Название, которое пользователи видят в отчётах и справочниках.',when:'Пишите так, как это назвал бы бизнес-пользователь.',effect:'Меняет подпись во всех местах, где показывается объект.',st:'draft'},
+short:{what:'Сокращённое название для узких колонок и подписей.',when:'Если полное название длинное.',effect:'Используется там, где полное не помещается.',st:'draft'},
+ref:{what:'Другое измерение, на которое ссылается это.',when:'Если значения этого измерения должны совпадать со значениями другого.',effect:'Связывает два измерения.',st:'draft'},
+dtype:{what:'Формат значений ключа: строка, число и т.п.',when:'Выбирается при создании, исходя из того, как устроены коды в источнике.',effect:'Определяет, как значения хранятся, сравниваются и сортируются.',st:'draft'},
+len:{what:'Максимальное число символов в значении ключа.',when:'Берите длину самого длинного кода в источнике.',effect:'Более длинные значения при загрузке не поместятся.',st:'draft'},
+case:{what:'Различать ли заглавные и строчные буквы в значениях.',when:'Включайте, если коды регистрозависимы в источнике.',effect:'Включено: «а» и «А» — разные значения. Выключено: регистр не различается.',st:'sap'},
+hier:{what:'У значений может быть структура «родитель — потомок».',when:'Если значения нужно группировать, например счета по группам.',effect:'Появится возможность задавать иерархии этого измерения.',st:'sap'},
+addbk:{what:'Новые значения создаются из загружаемых транзакционных данных.',when:'Если справочник пополняется автоматически вместе с данными.',effect:'Значения, которых нет в справочнике, появятся в нём сами.',st:'draft'},
+auto:{what:'Бизнес-ключ присваивается системой по порядку.',when:'Если в источнике нет готового кода.',effect:'Ключ нельзя задать вручную.',st:'draft'},
+lang:{what:'Тексты хранятся отдельно для каждого языка.',when:'Если названия значений переводятся, например названия продуктов. Для имён собственных обычно не нужно.',effect:'У каждого значения может быть по тексту на язык.',st:'sap'},
+time:{what:'Тексты действуют в определённый период.',when:'Если названия значений меняются со временем и нужна история.',effect:'В отчёте показывается текст на выбранную дату.',st:'sap'},
+st:{what:'Короткий текст значения, до 20 символов.',when:'Для узких колонок.',effect:'Добавляет у значений короткое название.',st:'sap'},
+mt:{what:'Средний текст значения, до 40 символов.',when:'Для обычных подписей.',effect:'Добавляет у значений среднее название.',st:'sap'},
+lt:{what:'Длинный текст значения, до 1333 символов.',when:'Для подробных описаний значений.',effect:'Добавляет у значений длинное описание. В SAP BW сверхдлинный текст ограничен 1333 символами.',st:'sap'},
+cat:{what:'Класс чувствительности данных этого измерения.',when:'Выбирается по правилам вашей организации.',effect:'Может влиять на доступ и порядок передачи данных.',st:'draft'},
+pub:{what:'Значения измерения доступны как справочник в Platform V Dictionaries.',when:'Если значения нужны другим системам как справочник.',effect:'Значения публикуются в Platform V Dictionaries.',st:'draft'},
+auth:{what:'Доступ к данным ограничивается по значениям этого измерения.',when:'Если разным ролям разрешены разные значения, например разные субъекты учёта.',effect:'При работе с данными выполняется проверка прав по значениям.',st:'sap'},
+virt:{what:'Значения не хранятся, а определяются при обращении.',when:'Уточнить у владельца продукта.',effect:'Уточнить у владельца продукта.',st:'draft'},
+ai:{what:'Значения измерения участвуют в AI-описании.',when:'Если AI должен понимать значения этого измерения.',effect:'Значения попадают в описание для AI.',st:'draft'},
+ext:{what:'Значения приходят из внешней системы, а не вводятся здесь.',when:'Если источник правды вне платформы.',effect:'Значения обновляются загрузкой из внешней системы.',st:'draft'},
+man:{what:'Пользователи могут добавлять значения в этом измерении вручную.',when:'Если нет источника, откуда значения приходят сами.',effect:'Появится возможность вносить записи вручную.',st:'draft'},
+calc:{what:'Значения, тексты и атрибуты берутся из представлений БД, а не загружаются и не вводятся вручную.',when:'Если значения измерения можно получить расчётом из других объектов.',effect:'Откроется блок «Семантические источники»; часть флагов станет недоступной.',st:'shot'},
+b_aor:{what:'Отправляет наполнение измерения в AOR.',when:'Уточнить у владельца продукта: когда отправлять.',effect:'Уточнить у владельца продукта: что именно произойдёт и обратимо ли.',st:'draft'},
+b_links:{what:'Показывает, как это измерение связано с другими объектами модели.',when:'',effect:'',st:'draft'},
+b_ui:{what:'Интерфейс ведения значений измерения.',when:'',effect:'',st:'draft'},
+b_ai:{what:'Описание измерения для AI.',when:'',effect:'',st:'draft'}
+};
+const STL={draft:'Черновик, нужна проверка',sap:'Аналог SAP BW',shot:'По экрану'};
+const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function ibtn(k){const h=H[k];if(!h||(!h.when&&!h.effect))return '';return `<button class="i" data-k="${k}" aria-label="Подробнее" aria-expanded="false">i</button><span class="ed ${h.st}">${STL[h.st]}</span>`}
+function edchip(k){const h=H[k];return h?`<span class="ed ${h.st}">${STL[h.st]}</span>`:''}
+function dis(){return !S.editing}
+function lockedField(id,label,req,type){
+ const h=H[id];
+ const val=S.v[id==='full'?'full':id==='short'?'short':id==='tech'?'tech':id];
+ const input=type==='ta'?`<textarea disabled>${e(val)}</textarea>`:`<input type="text" disabled value="${e(val)}">`;
+ return `<div class="f ${type==='ta'?'span2':''}"><label class="lbl">${label}${req?'<span class="req-dot" title="Обязательное">●</span>':''}${ibtn(id)}</label><div class="hintline">${e(h.what)}</div><div class="lockrow tipwrap" tabindex="0" aria-describedby="tt_${id}">${input}<span class="lock" aria-hidden="true">🔒</span><div class="tt" role="tooltip" id="tt_${id}">Заблокировано: нельзя менять после создания объекта.<div style="margin-top:5px;color:#f3d38a;font-size:11.5px">Пример текста, причину подтвердить.</div></div></div></div>`}
+function flag(id,label){
+ const h=H[id];const off=CALC_OFF.includes(id)&&S.calc;const d=dis()||off;
+ const tip=off?`<span class="lockbtn" aria-hidden="true">⛔</span><div class="tt" role="tooltip" id="tt_${id}">${CALC_WHY}</div>`:'';
+ return `<div class="flag ${off?'off tipwrap':''}" ${off?`tabindex="0" aria-describedby="tt_${id}"`:''}><input type="checkbox" id="c_${id}" data-f="${id}" ${S.v[id]?'checked':''} ${d?'disabled':''}><div class="t"><label for="c_${id}">${label}</label>${ibtn(id)}${off?'<span class="lockbtn" aria-hidden="true">⛔</span>':''}</div><div class="d">${e(h.what)}</div>${off?`<div class="tt" role="tooltip" id="tt_${id}">${CALC_WHY}</div>`:''}</div>`}
+function selectField(id,label,req,opts,extra){
+ const h=H[id];
+ return `<div class="f"><label class="lbl">${label}${req?'<span class="req-dot" title="Обязательное">●</span>':''}${extra||''}${ibtn(id)}</label><div class="hintline">${e(h.what)}</div><select data-f="${id}" ${dis()?'disabled':''}>${opts.map(o=>`<option ${S.v[id]===o?'selected':''}>${o}</option>`).join('')}</select></div>`}
+
+const SECS=[
+ {id:'main',t:'Основное',req:true,desc:'Как объект называется и как устроено значение ключа. Обязательные поля отмечены красной точкой.',
+  r:()=>`<div class="grid2">${lockedField('tech','Техническое имя',true)}<div class="f">${''}</div>${lockedField('full','Полное название',false)}${lockedField('short','Краткое название',false)}
+   ${selectField('dtype','Тип данных',true,['string','number','date','boolean'])}
+   ${lockedField('len','Длина поля',true)}
+   </div>`},
+ {id:'keys',t:'Значения и ключ',desc:'Как формируются и сравниваются значения измерения и есть ли у них структура.',
+  r:()=>`<div class="grid2"><div>${flag('case','Регистрочувствительность')}${flag('hier','Наличие иерархии')}</div><div>${flag('addbk','Добавление БК из транзакционных данных')}${flag('auto','Автоинкрементальный БК')}</div>
+   <div class="f span2" style="max-width:520px"><label class="lbl">Ссылочный объект к измерению <span class="opt">необязательно</span>${ibtn('ref')}</label><div class="hintline">${e(H.ref.what)}</div><select data-f="ref" ${dis()?'disabled':''}><option>Выберите значение</option><option>accounting_entity_group</option></select></div></div>`},
+ {id:'texts',t:'Тексты значений',desc:'Какие названия есть у значений и как они хранятся.',
+  r:()=>`<div class="grid2"><div><div class="sub-h">Хранение</div>${flag('lang','Зависимость текстов от языка')}${flag('time','Зависимость текстов от времени')}</div><div><div class="sub-h">Длина текста</div>${flag('st','Короткие тексты (20 символов)')}${flag('mt','Средние тексты (40 символов)')}${flag('lt','Длинные тексты (1333 символа)')}</div></div>`},
+ {id:'source',t:'Источник и ведение данных',desc:'Откуда берутся значения: загружаются, вносятся вручную или рассчитываются.',
+  r:()=>`<div class="grid2"><div>${flag('ext','Загружается из внешней системы')}${flag('man','Можно добавлять записи вручную')}${flag('virt','Виртуальное измерение')}</div><div></div></div>
+   <div class="sub-h">Режим расчёта</div>
+   <div class="tgl tipwrap" ${dis()?'tabindex="0" aria-describedby="tt_calc"':''}><button class="sw" role="switch" aria-checked="${S.calc}" id="calcsw" ${dis()?'disabled':''} aria-label="Расчётное измерение"></button><b>Расчётное измерение</b>${ibtn('calc')}${dis()?'<span class="lockbtn" aria-hidden="true">🔒</span><div class="tt" role="tooltip" id="tt_calc">Переключатель доступен в режиме редактирования. Нажмите «Изменить».</div>':''}</div>
+   <div class="hintline" style="margin-top:6px;max-width:700px">${e(H.calc.what)}</div>
+   
+   ${S.calc?calcBlock():''}`},
+ {id:'access',t:'Доступ и публикация',desc:'Кто и где видит данные этого измерения.',
+  r:()=>`<div class="grid2">${selectField('cat','Категория информации',false,['К1','К2','К3','К4'])}<div></div><div>${flag('pub','Публикация в Platform V Dictionaries')}${flag('auth','Релевантно для авторизации')}</div><div>${flag('ai','AI-описание значений')}</div></div>`},
+ {id:'attrs',t:'Атрибуты',desc:'Дополнительные свойства значений измерения. Таблица прокручивается вправо.',
+  r:()=>attrs()}
+];
+function calcBlock(){return `<div class="banner"><span>ℹ️</span><div><b>Измерение рассчитывается.</b> Значения, тексты и атрибуты берутся из объектов БД ниже. Ручной ввод, виртуальный режим и публикация недоступны. <span class="ed shot">По экрану</span></div></div>
+ <div class="sub-h">Семантические источники</div><div class="hintline">Для каждого вида данных укажите объект БД (VIEW), из которого он берётся.</div>
+ <div class="grid2" style="max-width:760px"><div class="f"><label class="lbl">Тип объекта</label><select ${dis()?'disabled':''}><option>DIMENSION</option></select></div><div class="f"><label class="lbl">Техническое имя</label><div style="display:flex;gap:8px"><select ${dis()?'disabled':''}><option>Выберите измерение</option></select><button class="btn" ${dis()?'disabled':''}>+</button></div></div></div>
+ <div class="tw" style="margin-top:10px"><table><tr><th>Вид объекта</th><th>Тип объекта</th><th>Техническое имя</th><th>Схема в БД</th></tr>
+ <tr class="src"><td>Значения</td><td>VIEW</td><td class="mono">accounting_entity_values_calc</td><td class="mono">ae_meta</td></tr>
+ <tr class="src"><td>Тексты</td><td>VIEW</td><td class="mono">accounting_entity_texts_calc</td><td class="mono">ae_meta</td></tr>
+ <tr class="src"><td>Атрибуты</td><td>VIEW</td><td class="mono">accounting_entity_attributes_calc</td><td class="mono">ae_meta</td></tr></table></div>`}
+const TH=[['Тип объекта',''],['Поле',''],['Описание',''],['Тип данных',''],['Длина поля',''],['Тип агрегации','Как значения атрибута объединяются при группировке.'],['Времязависимость','Значение атрибута действует в определённый период. В отчёте берётся значение на выбранную дату.'],['Загружается из внешней системы','Значения этого атрибута приходят из внешней системы.']];
+function attrs(){return `<div class="tw"><table><tr>${TH.map((h,i)=>`<th class="w"><div class="thi">${h[0]}${h[1]?`<button class="i" data-t="${i}" aria-expanded="false" aria-label="Что это">i</button>`:''}</div></th>`).join('')}</tr>
+ <tr><td>Атрибут-измерение</td><td class="mono">is_active ↗</td><td>Флаг Активно</td><td>BOOLEAN</td><td>1</td><td></td><td><button class="sw" role="switch" aria-checked="false" disabled aria-label="Времязависимость"></button></td><td><button class="sw" role="switch" aria-checked="false" disabled aria-label="Загружается из внешней системы"></button></td></tr></table></div>`}
+
+function render(){
+ // header buttons
+ document.getElementById('acts').innerHTML=
+  `<button class="btn sec" data-pop="b_aor">Отправить наполнение в AOR <span class="i" style="margin-left:4px">i</span></button><button class="btn sec" data-pop="b_links">Связи в логической модели</button><button class="btn" data-pop="b_ui">Интерфейс ведения</button><button class="btn" data-pop="b_ai">Описание для AI</button>`+
+  (S.editing?`<button class="btn" id="cancel">Отмена</button><button class="btn pri" id="save">Сохранить</button>`:`<button class="btn pri" id="edit">Изменить</button>`);
+ document.getElementById('sections').innerHTML=SECS.map(s=>`<section class="sec-card" id="s-${s.id}"><h2>${s.t}${s.req?'<span class="req-dot" title="Есть обязательные поля">●</span>':''}</h2><div class="desc">${s.desc}</div>${s.r()}</section>`).join('');
+ document.getElementById('nav').innerHTML=SECS.map(s=>`<a href="#s-${s.id}">${s.t}${s.req?'<span class="req" title="Есть обязательные поля">●</span>':''}</a>`).join('');
+ document.getElementById('reqsum').textContent='Обязательные поля заполнены: 3 из 3';
+ document.getElementById('d-view').className=S.editing?'':'on';document.getElementById('d-edit').className=S.editing?'on':'';
+ document.getElementById('d-calc').textContent='Расчётное: '+(S.calc?'вкл':'выкл');document.getElementById('d-calc').className=S.calc?'on':'';
+ document.getElementById('d-editor').className=S.editor?'on':'';
+ document.body.classList.toggle('editor',S.editor);
+ bind();
+}
+function closePop(){document.querySelectorAll('.pop').forEach(p=>p.remove());document.querySelectorAll('[aria-expanded=true]').forEach(b=>b.setAttribute('aria-expanded','false'));S.open=null}
+function showPop(btn,html){closePop();const p=document.createElement('div');p.className='pop';p.setAttribute('role','dialog');p.innerHTML=html+'<button class="x" aria-label="Закрыть">×</button>';document.body.appendChild(p);
+ const r=btn.getBoundingClientRect();let x=r.left+scrollX,y=r.bottom+scrollY+6;if(x+340>document.documentElement.clientWidth)x=Math.max(8,document.documentElement.clientWidth-348);p.style.left=x+'px';p.style.top=y+'px';btn.setAttribute('aria-expanded','true');S.open=btn;p.querySelector('.x').onclick=closePop;p.querySelector('.x').focus()}
+function popHtml(k){const h=H[k];let s=`<div>${e(h.what)}</div>`;if(h.when)s+=`<b>Когда включать / заполнять</b><div>${e(h.when)}</div>`;if(h.effect)s+=`<b>Что изменится</b><div>${e(h.effect)}</div>`;if(S.editor)s+=`<div class="st">Статус текста: ${STL[h.st]}</div>`;return s}
+function bind(){
+ document.querySelectorAll('.i[data-k]').forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.getAttribute('aria-expanded')==='true'?closePop():showPop(b,popHtml(b.dataset.k))});
+ document.querySelectorAll('.i[data-t]').forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.getAttribute('aria-expanded')==='true'?closePop():showPop(b,`<b style="margin-top:0">${TH[b.dataset.t][0]}</b><div>${e(TH[b.dataset.t][1])}</div>${S.editor?'<div class="st">Статус текста: Черновик, нужна проверка</div>':''}`)});
+ document.querySelectorAll('[data-pop]').forEach(b=>b.onclick=ev=>{ev.stopPropagation();showPop(b,popHtml(b.dataset.pop))});
+ document.querySelectorAll('input[data-f]').forEach(c=>c.onchange=()=>{S.v[c.dataset.f]=c.checked});
+ const sw=document.getElementById('calcsw');if(sw)sw.onclick=()=>{S.calc=!S.calc;render()};
+ const ed=document.getElementById('edit');if(ed)ed.onclick=()=>{S.editing=true;render()};
+ const sv=document.getElementById('save');if(sv)sv.onclick=()=>{S.editing=false;render()};
+ const ca=document.getElementById('cancel');if(ca)ca.onclick=()=>{S.editing=false;render()};
+}
+document.addEventListener('click',ev=>{if(!ev.target.closest('.pop'))closePop()});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape'){const b=S.open;closePop();if(b)b.focus()}});
+document.getElementById('d-view').onclick=()=>{S.editing=false;render()};
+document.getElementById('d-edit').onclick=()=>{S.editing=true;render()};
+document.getElementById('d-calc').onclick=()=>{S.calc=!S.calc;render()};
+document.getElementById('d-editor').onclick=()=>{S.editor=!S.editor;render()};
+document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{document.querySelector('.app').style.maxWidth=b.dataset.w==='0'?'none':b.dataset.w+'px';document.querySelectorAll('[data-w]').forEach(x=>x.classList.toggle('on',x===b))});
+render();
+</script>
+</body>
+</html>
